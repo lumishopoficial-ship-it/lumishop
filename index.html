@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LumiShop | Catálogo</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --accent: #f8f8f8;
+            --transition: all 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+            --header-height: 100px; /* Definimos la altura del header */
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--light);
+            color: var(--dark);
+            /* Importante: Añadimos espacio arriba para que el header no tape el contenido */
+            padding-top: var(--header-height);
+        }
+
+        /* ===== HEADER FIJO ===== */
+        nav {
+            position: fixed; /* Lo mantiene anclado a la pantalla */
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            z-index: 1000; /* Asegura que esté por encima de todo */
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px); /* Efecto de cristal esmerilado */
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr auto 1fr;
+            align-items: center;
+        }
+
+        /* LOGO */
+        .logo-container {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 2px solid var(--dark);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: transform 0.25s ease;
+        }
+
+        .logo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .logo-container:active {
+            transform: scale(1.18);
+        }
+
+        /* WHATSAPP */
+        .nav-right {
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-whatsapp {
+            text-decoration: none;
+            color: var(--dark);
+            border: 1.2px solid var(--dark);
+            padding: 6px 12px;
+            border-radius: 6px;
+            display: flex;
+            flex-direction: column;
+            transition: var(--transition);
+        }
+
+        .btn-whatsapp:hover {
+            background: var(--dark);
+            color: var(--light);
+        }
+
+        .btn-whatsapp span:first-child {
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+        }
+
+        .btn-whatsapp span:last-child {
+            font-size: 0.65rem;
+            opacity: 0.85;
+            white-space: nowrap;
+        }
+
+        /* ===== CATEGORÍAS ===== */
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            padding: 30px 15px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .category-link {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .category-card {
+            position: relative;
+            overflow: hidden;
+            background: var(--accent);
+            border-radius: 12px;
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+        }
+
+        .category-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+
+        .category-card:hover img {
+            transform: scale(1.05);
+        }
+
+        .category-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px;
+            background: linear-gradient(to top, rgba(0,0,0,0.7), transparent);
+            color: white;
+        }
+
+        .category-info h2 {
+            margin: 0;
+            font-size: 1.2rem;
+        }
+
+        /* ===== MOBILE ===== */
+    /* ===== MOBILE ===== */
+@media (max-width: 480px) {
+    :root {
+        --header-height: 80px;
+    }
+    .nav-container { padding: 0 15px; }
+    .logo-container { width: 55px; height: 55px; }
+    /* .btn-whatsapp span:last-child { display: none; } */ /* <- Comentada o eliminada */
+}
+
+    </style>
+</head>
+
+<body>
+
+<nav>
+    <div class="nav-container">
+        <div></div>
+
+        <div class="logo-container" onclick="window.location.href='index.html'">
+            <img src="img/Logo.png" alt="Logo">
+        </div>
+
+        <div class="nav-right">
+            <a href="https://wa.me/tu-numero" target="_blank" class="btn-whatsapp">
+                <span>WhatsApp</span>
+                <span>Pide tu producto aquí</span>
+            </a>
+        </div>
+    </div>
+</nav>
+
+<main class="categories-grid">
+
+    <a href="Decoracion.html" class="category-link">
+        <div class="category-card">
+            <img src="img/Decoracion/Decoracion.jpeg" alt="Decoración">
+            <div class="category-info"><h2>Decoración</h2></div>
+        </div>
+    </a>
+
+    <a href="Electronicos.html" class="category-link">
+        <div class="category-card">
+            <img src="img/Electronicos/Airpods Foto 2.jpg" alt="Electrónicos">
+            <div class="category-info"><h2>Electrónicos</h2></div>
+        </div>
+    </a>
+
+    <a href="Calzado.html" class="category-link">
+        <div class="category-card">
+            <img src="img/Calzado/Calzado.jpeg" alt="Calzado">
+            <div class="category-info"><h2>Calzado</h2></div>
+        </div>
+    </a>
+
+    <a href="Juguetes.html" class="category-link">
+        <div class="category-card">
+            <img src="img/Juguetes/CarroLego2.avif" alt="Juguetes">
+            <div class="category-info"><h2>Juguetes</h2></div>
+        </div>
+    </a>
+
+    <a href="Peluches.html" class="category-link">
+        <div class="category-card">
+            <img src="img/Peluches/peluches.jpeg" alt="Peluches">
+            <div class="category-info"><h2>Peluches</h2></div>
+        </div>
+    </a>
+      <a href="Botellas.html" class="category-link">
+        <div class="category-card">
+            <img src="img/Botellas/Botella 2lts 2.jpeg" alt="Juguetes">
+            <div class="category-info"><h2>Botellas</h2></div>
+        </div>
+    </a>
+
+    <a href="Utilidades.html" class="category-link">
+        <div class="category-card">
+            <img src="img/Utilidades/CajaNegraAbierta.jpeg" alt="Peluches">
+            <div class="category-info"><h2>Utilidades</h2></div>
+        </div>
+    </a>
+
+    <a href="Pulseras.html" class="category-link">
+        <div class="category-card">
+            <img src="img/Utilidades/CajaNegraAbierta.jpeg" alt="Peluches">
+            <div class="category-info"><h2>Pulseras</h2></div>
+        </div>
+    </a>
+</main>
+
+</body>
+</html>

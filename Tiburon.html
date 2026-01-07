@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LumiShop | Producto</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+:root{
+    --dark:#0a0a0a;
+    --light:#ffffff;
+    --accent:#f8f8f8;
+    --transition:all .45s cubic-bezier(.23,1,.32,1);
+    --header-height:100px;
+}
+
+*{box-sizing:border-box}
+html{overflow-y:scroll}
+
+body{
+    margin:0;
+    font-family:'Plus Jakarta Sans',sans-serif;
+    background:var(--light);
+    color:var(--dark);
+    padding-top:var(--header-height);
+    overflow-x:hidden;
+}
+
+/* ===== HEADER (CLON EXACTO) ===== */
+nav{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:var(--header-height);
+    z-index:1000;
+    background:rgba(255,255,255,.9);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid #eee;
+    display:flex;
+    align-items:center;
+}
+
+.nav-container{
+    width:100%;
+    max-width:1200px;
+    margin:0 auto;
+    padding:0 20px;
+    position:relative;
+    display:flex;
+    align-items:center;
+}
+
+/* IZQUIERDA */
+.nav-left{
+    display:flex;
+    align-items:center;
+    flex:1;
+}
+
+/* BOTÓN ATRÁS */
+.btn-back{
+    cursor:pointer;
+    font-weight:600;
+    font-size:.9rem;
+    padding:6px 10px;
+    border-radius:6px;
+    transition:var(--transition);
+    white-space:nowrap;
+}
+.btn-back:hover{background:var(--accent)}
+
+/* LOGO CENTRADO REAL */
+.logo-container{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+    width:65px;
+    height:65px;
+    border-radius:50%;
+    overflow:hidden;
+    border:2px solid var(--dark);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+.logo-container img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+/* DERECHA */
+.nav-right{
+    display:flex;
+    justify-content:flex-end;
+    flex:1;
+}
+
+/* WHATSAPP */
+.btn-whatsapp{
+    text-decoration:none;
+    color:var(--dark);
+    border:1.2px solid var(--dark);
+    padding:6px 12px;
+    border-radius:6px;
+    display:flex;
+    flex-direction:column;
+}
+.btn-whatsapp:hover{background:var(--dark);color:var(--light)}
+.btn-whatsapp span:first-child{font-size:.75rem;font-weight:700}
+.btn-whatsapp span:last-child{font-size:.65rem;opacity:.85}
+
+/* ===== PRODUCTO ===== */
+.product-detail{
+    max-width:1200px;
+    margin:40px auto;
+    padding:0 15px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:40px;
+}
+
+/* GALERÍA */
+.gallery{
+    border-radius:20px;
+    overflow:hidden;
+    cursor:pointer;
+}
+.gallery img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+}
+
+/* INFO */
+.product-text h1{margin:0 0 12px;font-size:2rem}
+.product-price{
+    font-size:1.5rem;
+    font-weight:700;
+    color:#ffb703;
+    margin-bottom:16px;
+}
+.product-desc{line-height:1.7;margin-bottom:25px}
+
+.buy-btn{
+    display:inline-block;
+    background:#25D366;
+    color:white;
+    text-decoration:none;
+    padding:14px 22px;
+    border-radius:10px;
+    font-weight:700;
+}
+.buy-btn:hover{background:#1ebc59}
+
+/* ===== MODAL ===== */
+.modal{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.5);
+    backdrop-filter:blur(6px);
+    display:none;
+    align-items:center;
+    justify-content:center;
+    z-index:2000;
+}
+
+.modal-box{
+    position:relative;
+    width:90%;
+    max-width:500px;
+    background:white;
+    border-radius:20px;
+    padding:20px;
+}
+
+.modal-img-wrapper{
+    width:100%;
+    aspect-ratio:1/1;
+    overflow:hidden;
+    border-radius:14px;
+}
+
+.modal-img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    cursor:zoom-in;
+    transition:transform .3s ease;
+}
+.modal-img.zoom{
+    transform:scale(1.6);
+    cursor:zoom-out;
+}
+
+.modal-close{
+    position:absolute;
+    top:-18px;
+    right:-18px;
+    background:white;
+    border-radius:50%;
+    width:36px;
+    height:36px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:18px;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,.2);
+}
+
+/* ===== MÁS PRODUCTOS ===== */
+.scroll-products{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    padding-bottom:10px;
+    flex-wrap:nowrap;
+}
+
+.small-card{
+    flex:0 0 120px;   /* 🔑 CLAVE */
+    max-width:120px;
+    background:var(--accent);
+    border-radius:12px;
+    overflow:hidden;
+    cursor:pointer;
+}
+
+.small-card img{
+    width:100%;
+    aspect-ratio:1/1;
+    object-fit:cover;
+}
+
+.small-card p{
+    margin:6px;
+    font-size:.75rem;
+    text-align:center;
+    font-weight:700;
+    color:#ffb703;
+}
+
+/* ===== MOBILE ===== */
+@media(max-width:768px){
+    :root{--header-height:80px}
+    .product-detail{grid-template-columns:1fr}
+    .btn-whatsapp span:last-child{display:none}
+    .logo-container{width:55px;height:55px}
+}
+
+/* ===== FOOTER FIX ===== */
+.site-footer{
+    margin-top:60px;
+    padding:25px 15px;
+    text-align:center;
+    font-size:.8rem;
+    color:#555;
+    border-top:1px solid #eee;
+    background:var(--light);
+}
+
+</style>
+</head>
+
+<body>
+
+<nav>
+<div class="nav-container">
+    <div class="nav-left">
+        <div class="btn-back" onclick="window.location.href='../Decoracion.html'">← Atrás</div>
+    </div>
+
+    <div class="logo-container" onclick="window.location.href='../index.html'">
+        <img src="../img/Logo.png">
+    </div>
+
+    <div class="nav-right">
+        <a href="https://wa.me/521XXXXXXXXXX" class="btn-whatsapp">
+            <span>WHATSAPP</span>
+            <span>Pide tu producto aquí</span>
+        </a>
+    </div>
+</div>
+</nav>
+
+<section class="product-detail">
+
+<div class="gallery" onclick="openModal()">
+    <img id="mainImage" src="../img/Peluches/peluches.jpeg">
+</div>
+
+<div class="product-text">
+    <h1>Peluche Tiburón</h1>
+    <div class="product-price">$499</div>
+    <p class="product-desc">
+        Peluche premium, suave y grande. Ideal para regalo.
+    </p>
+    <a class="buy-btn"
+       href="https://wa.me/521XXXXXXXXXX?text=Hola%20quiero%20el%20Peluche%20Tiburón">
+       Comprar por WhatsApp
+    </a>
+</div>
+
+</section>
+
+<!-- MODAL -->
+<div class="modal" id="modal">
+    <div class="modal-box">
+        <div class="modal-close" onclick="closeModal()">✕</div>
+        <button class="modal-btn left" onclick="prev()">‹</button>
+        <div class="modal-img-wrapper">
+            <img id="modalImg" class="modal-img">
+        </div>
+        <button class="modal-btn right" onclick="next()">›</button>
+    </div>
+</div>
+
+<!-- MÁS PRODUCTOS -->
+<section class="more-products">
+<h2>Más productos</h2>
+<div class="scroll-products" id="moreProducts"></div>
+</section>
+
+<footer class="site-footer">
+    LumiShop © 2025 · Todos los derechos reservados
+</footer>
+
+<script>
+const images=[
+    "../img/Peluches/peluches.jpeg",
+    "../img/Peluches/Peluche tortuga.jpeg",
+    "../img/Peluches/CapibaraSalvavidas.jpeg"
+];
+
+let i=0;
+const modal=document.getElementById("modal");
+const modalImg=document.getElementById("modalImg");
+
+function openModal(){
+    modal.style.display="flex";
+    modalImg.src=images[i];
+}
+function closeModal(){
+    modal.style.display="none";
+    modalImg.classList.remove("zoom");
+}
+function next(){
+    i=(i+1)%images.length;
+    modalImg.src=images[i];
+}
+function prev(){
+    i=(i-1+images.length)%images.length;
+    modalImg.src=images[i];
+}
+modalImg.onclick=()=>modalImg.classList.toggle("zoom");
+
+/* ===== MÁS PRODUCTOS ALEATORIOS ===== */
+const allProducts=[
+    {img:"../img/Decoracion/Lampara1.jpeg",price:"$390",link:"LamparaEscritorio.html"},
+    {img:"../img/Decoracion/Decoracion.jpeg",price:"$420",link:"PlantasCuadradas.html"},
+    {img:"../img/Decoracion/Decoracion.jpeg",price:"$350",link:"PlantasRedondas.html"},
+    {img:"../img/Electronicos/Agua.jpeg",price:"$390",link:"Dispensador.html"},
+    {img:"../img/Electronicos/Airpods Foto 2.jpeg",price:"$420",link:"AirpodsPro2.html"},
+    {img:"../img/Electronicos/RelojLed1.jpeg",price:"$350",link:"RelojLed.html"},
+   {img:"../img/Calzado/Blancos1.jpeg",price:"$390",link:"ZapatosNegros.html"},
+    {img:"../img/Calzado/Negro2.jpeg",price:"$420",link:"ZapatosBlancos.html"},
+    {img:"../img/Calzado/Chanchas azules.jpeg",price:"$350",link:"ChanclasAzules.html"},
+    {img:"../img/Calzado/Chanchas Moradas.jpeg",price:"$390",link:"ChanclasMoradas.html"},
+    {img:"../img/Calzado/Chanchas grises.jpeg",price:"$420",link:"ChanclasGrises.html"},
+    {img:"../img/Calzado/Coloso1.jpeg",price:"$350",link:"ZapatosColoso.html"},
+    {img:"../img/Juguetes/Ambulancia1.avif",price:"$390",link:"LegoAmbulancia.html"},
+    {img:"../img/Juguetes/CarroLego2.avif",price:"$420",link:"LegoDeportivo.html"},
+    {img:"../img/Juguetes/CarroLegoMedidas.avif",price:"$350",link:"LegoTienda.html"},
+ {img:"../img/Peluches/CapibaraMocoso.jpeg",price:"$420",link:"CapibaraMocoso.html"},
+    {img:"../img/Peluches/CapibaraMocoso.jpeg",price:"$350",link:"Ballena.html"},
+    {img:"../img/Peluches/CapibaraSalvavidas.jpeg",price:"$390",link:"CapibaraSalvavidas.html"},
+    {img:"../img/Peluches/Peluche tortuga.jpeg",price:"$420",link:"CapibaraTortuga.html"},
+    {img:"../img/Peluches/peluches.jpeg",price:"$350",link:"Tiburon.html"},
+{img:"../img/Botellas/Botella 1lt 2.jpeg",price:"$390",link:"BotellaMulti1.html"},
+    {img:"../img/Botellas/Termo Rojo Cerrado.jpeg",price:"$420",link:"Termo.html"},
+    {img:"../img/Botellas/Botella 2lts 2.jpeg",price:"$350",link:"BotellaMulti2.html"},
+ {img:"../img/Utilidades/CajaNegraAbierta.jpeg",price:"$350",link:"JoyeroNegro.html"},
+{img:"../img/Utilidades/CajaNegraAbierta.jpeg",price:"$390",link:"JoyeroRosa.html"},
+    {img:"../img/Utilidades/PlumasNegras.jpeg",price:"$420",link:"PlumasNegras.html"},
+    {img:"../img/Utilidades/PlumasRojas.jpeg",price:"$350",link:"PlumasRojas.html"},
+
+
+];
+
+const currentPage=window.location.pathname.split("/").pop();
+const container=document.getElementById("moreProducts");
+
+allProducts
+.filter(p=>p.link!==currentPage)
+.sort(()=>Math.random()-0.5)
+.slice(0,10)
+.forEach(p=>{
+    const card=document.createElement("div");
+    card.className="small-card";
+    card.onclick=()=>window.location.href=p.link;
+    card.innerHTML=`<img src="${p.img}"><p>${p.price}</p>`;
+    container.appendChild(card);
+});
+</script>
+
+</body>
+</html>
